@@ -51,7 +51,7 @@ public class TorneioController {
 
 	@RequestMapping("/cadastrar")
 	public ModelAndView formCadastroTorneio(@PathVariable("id_organizador") long id_organizador) {
-		ModelAndView mv = new ModelAndView("FormTorneio");
+		ModelAndView mv = new ModelAndView("formTorneio");
 		Organizador organizador = or.findById(id_organizador);
 		mv.addObject("organizador", organizador);
 		return mv;
