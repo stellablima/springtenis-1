@@ -44,7 +44,11 @@ public class OrganizadorController {
 				organizador1.get().getSenha().intern()==organizador.getSenha().intern()) { 
 			return "redirect:/"+ organizador1.get().getId() +"/torneio/view";
 		}
-		return "redirect:/organizador/login";
+		else {
+			attributes.addFlashAttribute("mensagem", "Organizador não encontrado");
+			return "redirect:/organizador/login";
+		}
+		
 	}
 	
 	@RequestMapping("/{id_organizador}/editar")
