@@ -1,0 +1,147 @@
+body{
+	background-color: rgb(0,162,232);font-family:"Trebuchet MS", Helvetica, sans-serif; font-weight: bold;
+	background-image: url(/image/table-tenis-3946115_1280.jpg);
+	background-size: cover;
+}
+
+
+nav{background-color: rgba(0,0,0,0); height: 60px;}
+.nav-wrapper{background-color: rgba(0,0,0,0.5); padding-left: 10px;}
+.btn{background-color: rgb(237,28,36);font-family:"Trebuchet MS", Helvetica, sans-serif; font-weight: bold;}
+.btn:hover{background-color: #ff6c6c;}
+.btn:active{background-color: rgb(237,28,36);}
+.btn:focus{background-color: rgb(237,28,36);}
+
+
+
+
+.container{
+	background-color: rgba(240,240,255,0.8);
+	box-shadow: 0 0 8px graytext;
+	border-radius: 5px;
+	padding: 20px;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+.table{	padding-left: 40px;}
+
+
+
+
+
+
+
+
+
+
+input{border-bottom: 1.5px solid #c0c0c0  !important ;box-shadow:none  !important ;}
+input:focus, input:active{border-bottom: 1.5px solid #b81414  !important ;box-shadow:none !important ;}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s !important;
+}
+
+
+
+
+.ball,.ball:focus{background-color: #ffc04a; box-shadow: inset  0px 0px 10px #ff7b2d, 0px 0px 5px #8a4c00; border-radius: 50%; height: 35px;width: 35px;padding: 0px;}
+.ball:hover,.ball:active{background-color: white; box-shadow: inset  0px 0px 8px #c0c0c0  ,0px 0px 5px #999999;}
+.ball:hover,.ball:active> .material-icons{color: #242424;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+p, fh, fh4{ }
+fh{	font-size: 30px;}
+fh4{ font-size: 35px;}
+fhb{ font-size: 20px;}
+div{background-color: rgba(0,240,255,0.0);}
+
+
+
+
+.formOrganizador{	
+	float: center;
+	width: 52%;
+	padding-bottom: 0px;
+	padding-left: 30px;
+}
+
+.detalhesTorneio{
+    box-shadow: 0px 0px 5px grey;
+    padding: 20px;
+    padding-bottom: 5px;
+    margin-top: 50px;
+    
+}
+.formAtleta{
+    box-shadow: 0px 0px 5px grey;
+    padding: 20px;
+    margin-top: 50px; 
+}
+.formTorneio{
+    padding: 20px;
+    margin-top: 50px; 
+    
+}
+.formAtletaAdicionado{
+	background-color: rgba(240,240,255,0.8);
+	box-shadow: 0 0 8px graytext;
+	border-radius: 5px;
+	padding: 20px;
+	margin-top:-15px;
+	margin-bottom:50px;
+	float: left;
+	width: 35%;
+	
+ 
+}
+.formAtletaGeral{
+	background-color: rgba(240,240,255,0.8);
+	box-shadow: 0 0 8px graytext;
+	border-radius: 5px;
+	padding: 20px;
+	margin-top:-15px;
+	margin-bottom:50px;
+	float: right;
+	width: 60%;
+	
+
+}
+.formAtletaGeral tr{
+    margin: 0px;
+    padding: 0px;
+}
+
+.listaAtletas{
+    padding: 20px;
+    margin-top: 50px; 
+    margin-bottom: 50px; 
+}
+.listaTorneios{
+    padding: 20px;
+    margin-top: 50px; 
+    margin-bottom: 50px; 
+}
+#signup{}
+#login{}
+.ocultar{display.none;}

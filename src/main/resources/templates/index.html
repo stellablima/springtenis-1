@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="/style/style.css"/>
+        <title>Tenis - springtenis release</title>
+    </head>
+    <body>
+        <header>
+            <nav id="nav">
+                <div  class="nav-wrapper" th:each="organizador : ${organizador}">  
+                		<a href="#" class="brand-logo "><fh>Bem vindo <span th:text="${organizador.nome}"></span></fh></a>                 
+                    <ul  id="nav-mobile" class="right hide-on-med-and-down">
+                    	<li><a th:href="${(#mvc.url('CC#formClube').arg(0,organizador.getId())).build()}" class="waves-effect waves-light btn"><i class="material-icons left">format_list_bulleted</i>Ficha do Clube</a></li>
+                        <li><a th:href="${(#mvc.url('TC#formCadastroTorneio').arg(0,organizador.getId())).build()}" class="waves-effect waves-light btn"><i class="material-icons left">add_circle_outline</i>Novo torneio!</a></li>
+						<li><a th:href="${(#mvc.url('AC#formCadastroAtleta').arg(0,organizador.getId())).build()}" class="waves-effect waves-light btn"><i class="material-icons left">add_circle_outline</i>Atletas do clube</a></li>
+                        <li><a href="/" class="waves-effect waves-light btn"><i class="material-icons left">arrow_forward</i>Logout</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <table class="container">
+            <thead>
+            	<tr><th colspan="6" style="text-align:center;"><span th:text="${organizador.clube.nomeClube}"></span></th></tr>
+                <tr>
+                	<th style="width: 1%;"></th>
+                	<th style="width: 10%;">Nome</th>
+                    <th style="width: 5%;">Data</th>
+                    <th style="width: 2%;text-align:center; ">Gerenciar</th>
+                    <th style="width: 2%;text-align:center; ">Editar</th>
+                    <th style="width: 2%;text-align:center; ">Deletar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="torneio : ${torneios}">  
+                	<td></td>              	
+                    <td><p><span th:text="${torneio.nome}"></span></td>
+                    <td><p><span th:text="${torneio.data_inicio}"></span></td>
+                    <td style="text-align:center;"><a th:disabled="${torneio.getAtletasParticipantes().size()<16}" th:href="${(#mvc.url('PC#listChaves').arg(0,organizador.getId()).arg(1,torneio.id)).build()}"  class=" btn-small ball"><i class="material-icons">border_color</i></a></td>
+                    <td style="text-align:center;"><a th:disabled="${torneio.getAtletaVencedor()}" th:href="${(#mvc.url('TC#formEditarTorneio').arg(0,organizador.getId()).arg(1,torneio.id)).build()}"  class=" btn-small ball"><i class="material-icons">edit</i></a></td>
+                    <td style="text-align:center;"><a th:disabled="${torneio.getAtletaVencedor()}" th:href="${(#mvc.url('TC#deleteTorneio').arg(0,organizador.getId()).arg(1,torneio.id)).build()}" class="btn-small ball"><i class="material-icons">delete</i></a></td>
+          		</tr>
+            </tbody>
+        </table>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+    </body>
+</html>

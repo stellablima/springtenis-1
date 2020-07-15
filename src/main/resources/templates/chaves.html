@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet" />
+<link type="text/css" rel="stylesheet"
+	href="/materialize/css/materialize.min.css" media="screen,projection" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/style/style.css" />
+<title>Tenis - Torneio release</title>
+</head>
+<body>
+	<header>
+		<nav>
+			<div class="nav-wrapper">
+				<a href="#" class="brand-logo">Gerenciar torneio</a>
+				<ul th:each="organizador : ${organizador}" id="nav-mobile"
+					class="right hide-on-med-and-down">
+					<li><a
+						th:href="${(#mvc.url('TC#listTorneios').arg(0,organizador.getId())).build()}"
+						class="waves-effect waves-light btn"><i
+							class="material-icons left">format_list_bulleted</i>Lista de
+							torneios</a></li>
+					<li><a href="/" class="waves-effect waves-light btn"><i
+							class="material-icons left">arrow_forward</i>Logout</a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+		<div class="container">
+		<h5>Torneio</h5>	
+		<ul th:each="torneio : ${torneio}">
+			<li>
+				Nome: <span th:text="${torneio.nome}"></span>
+			</li>
+			<li>
+				Data: <span th:text="${torneio.data_inicio}"></span>
+			</li>
+			<li th:each="atletaVencedor : ${torneio.getAtletaVencedor()}">
+				<span style="color: red;" th:text="'Atleta vencedor: '+${atletaVencedor.nome}+' - Clube: '+${atletaVencedor.clube.nomeClube}"></span>
+			</li>
+		</ul>			
+		</div>
+		<div class="container">
+			<h5>Promover atleta a vencedor</h5>
+			<table>
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Clube</th>
+						<th>Vencedor</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="atleta : ${atletas1}">
+						<td><p>
+								<span th:text="${atleta.nome}"></span></td>
+						<td><p>
+								<span th:text="${atleta.clube.nomeClube}"></span></td>
+						<td><a 
+							th:href="${(#mvc.url('PC#saveAtletaVencedor').arg(0,organizador.getId()).arg(1, torneio.id).arg(2, atleta.id)).build()}"
+							class="waves-effect waves-light btn-small ball"><i
+								class="material-icons">add</i></a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>		
+	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+	<script type="text/javascript" src="/script/script.js"></script>
+</body>
+</html>
