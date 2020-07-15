@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.stellablima.tenis150720.bussiness.Convert;
 import com.stellablima.tenis150720.form.OrganizadorForm2;
 import com.stellablima.tenis150720.model.Atleta;
@@ -26,7 +25,7 @@ import com.stellablima.tenis150720.model.Organizador;
 import com.stellablima.tenis150720.model.Torneio;
 import com.stellablima.tenis150720.repository.ClubeRepository;
 import com.stellablima.tenis150720.repository.OrganizadorRepository;
-import com.stellablima.tenis150720.repository.TorneioRepository;
+
 
 @Controller
 @RequestMapping("/clube")
@@ -35,8 +34,7 @@ public class ClubeController {
 	private ClubeRepository cr;
 	@Autowired
 	private OrganizadorRepository or;
-	@Autowired
-	private TorneioRepository tr;
+
 	
 	@RequestMapping("/signup")
 	public String signup() { 

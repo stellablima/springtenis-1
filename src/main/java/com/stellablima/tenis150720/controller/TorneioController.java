@@ -3,7 +3,6 @@ package com.stellablima.tenis150720.controller;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.stellablima.tenis150720.bussiness.Convert;
 import com.stellablima.tenis150720.model.Atleta;
 import com.stellablima.tenis150720.model.Organizador;
