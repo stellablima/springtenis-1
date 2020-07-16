@@ -50,16 +50,6 @@ public class AtletaController {
 		mv.addObject("atletas", atletaView);
 		return mv;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 	@PostMapping("/cadastrar")
 	public String saveAtleta(@PathVariable("id_organizador") long id_organizador, @Valid Atleta atleta, BindingResult result, RedirectAttributes attributes) {
