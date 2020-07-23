@@ -21,34 +21,30 @@ import com.stellablima.tenis150720.model.Atleta;
 import com.stellablima.tenis150720.model.Organizador;
 import com.stellablima.tenis150720.model.Torneio;
 import com.stellablima.tenis150720.repository.AtletaRepository;
-import com.stellablima.tenis150720.repository.OrganizadorFormRepository;
 import com.stellablima.tenis150720.repository.OrganizadorRepository;
 import com.stellablima.tenis150720.repository.TorneioRepository;
-
-
 
 @Controller
 @RequestMapping("{id_organizador}/torneio")
 public class TorneioController {
 	@Autowired
-	TorneioRepository tr;
+	private TorneioRepository tr;
 	@Autowired
-	OrganizadorRepository or;
+	private OrganizadorRepository or;
 	@Autowired
-	OrganizadorFormRepository ofr;
-	@Autowired
-	AtletaRepository ar;
+	private AtletaRepository ar;
 
-	@GetMapping("/view")
+	
+	@GetMapping(value = "/view")
 	public ModelAndView listTorneios(@PathVariable("id_organizador") long id_organizador) throws ParseException {
 		ModelAndView mv = new ModelAndView("index");
 		Organizador organizador = or.findById(id_organizador);
 		mv.addObject("organizador", organizador);
-		Iterable<Torneio> torneios = tr.findByClube(organizador.getClube());
+		List<Torneio> torneios = tr.findByClube(organizador.getClube()); //retirei iterable do repository e dessa linha
 		mv.addObject("torneios", Convert.ordenarTorneioDataBS(torneios));
 		return mv;
 	}
-
+	
 	@RequestMapping("/cadastrar")
 	public ModelAndView formCadastroTorneio(@PathVariable("id_organizador") long id_organizador) {
 		ModelAndView mv = new ModelAndView("formTorneio");
@@ -56,10 +52,10 @@ public class TorneioController {
 		mv.addObject("organizador", organizador);
 		return mv;
 	}
-
 	@PostMapping("/cadastrar")
 	public String saveTorneio(@PathVariable("id_organizador") long id_organizador, @Valid Torneio torneio,
 			BindingResult result, RedirectAttributes attributes) throws ParseException {
+		//Campo nome ou data vazio
 		if (result.hasErrors()) {
 			attributes.addFlashAttribute("mensagem", "Verifique os campos");
 			return "redirect:/{id_organizador}/torneio/cadastrar";
@@ -73,23 +69,18 @@ public class TorneioController {
 			attributes.addFlashAttribute("mensagem", "Torneio so pode ser cadastrado para uma data futura");
 			return "redirect:/{id_organizador}/torneio/cadastrar";
 		}
-		saveTorneioService(id_organizador, torneio);
-		return "redirect:/{id_organizador}/torneio/view";
-	}
-
-	@ResponseBody
-	private void saveTorneioService(long id_organizador, Torneio torneio) {
+		//saveTorneioService(id_organizador, torneio);
 		Organizador organizador = or.findById(id_organizador);
 		torneio.setClube(organizador.getClube());
 		tr.save(torneio);
+		return "redirect:/{id_organizador}/torneio/view";
 	}
 
-	@RequestMapping("/deletar")
+	@GetMapping("/deletar")
 	public String deleteTorneio(@PathVariable("id_organizador") long id_organizador, long id_torneio) {
 		deleteTorneioService(id_torneio);
 		return "redirect:/{id_organizador}/torneio/view";
 	}
-
 	@ResponseBody
 	@DeleteMapping("/deletar/{id_torneio}")
 	private void deleteTorneioService(@PathVariable("id_torneio") long id_torneio) {
@@ -105,24 +96,23 @@ public class TorneioController {
 		mv.addObject("organizador", organizador);
 		Torneio torneio = tr.findById(id_torneio);
 		mv.addObject("torneio", torneio);
-		List<Atleta> atletas1 = torneio.getAtletasParticipantes();// tr.findByAtletasParticipantes(torneio);
+		List<Atleta> atletas1 = torneio.getAtletasParticipantes();
 		mv.addObject("atletas1", atletas1);
 		List<Atleta> atletas2 = ar.findAll();
 		atletas2.removeAll(atletas1);
 		List<Atleta> atletaView = new ArrayList<Atleta>() ;
         for(Atleta atleta : atletas2) {     	
-        	atleta.setDataNascimento(Convert.calculaIdade("yyyy-MM-dd", atleta.getDataNascimento())); //setData_inicio(Convert.convertCalendarToString("dd/MM/yyyy", cal));
+        	atleta.setDataNascimento(Convert.calculaIdade("yyyy-MM-dd", atleta.getDataNascimento()));
         	atletaView.add(atleta);
         }
 		mv.addObject("atletas2", atletaView);		
-		//mv.addObject("atletas2", atletas2);
 		return mv;
 	}
-
 	@PostMapping("/editar/{id_torneio}")
 	public String updateTorneio(@PathVariable("id_organizador") long id_organizador,
 			@PathVariable("id_torneio") long id_torneio, @Valid Torneio torneio, BindingResult result,
 			RedirectAttributes attributes) throws ParseException {
+		//se campo vazio
 		if (result.hasErrors()) {
 			attributes.addFlashAttribute("mensagem", "Verifique os campos");
 			return "redirect:/{id_organizador}/torneio/editar/{id_torneio}";
@@ -136,20 +126,15 @@ public class TorneioController {
 			attributes.addFlashAttribute("mensagem", "O torneio so pode ser remarcado para uma data futura");
 			return "redirect:/{id_organizador}/torneio/editar/{id_torneio}";
 		}
-		updateTorneioService(id_torneio, torneio);
-		return "redirect:/{id_organizador}/torneio/view";
-	}
-
-	
-	@ResponseBody// @PutMapping("/editar/{id_torneio}")
-	private void updateTorneioService(long id_torneio, Torneio torneio) {
+		//updateTorneioService(id_torneio, torneio);		
 		Torneio torneioUpdated = tr.findById(id_torneio);
 		torneioUpdated.setData_inicio(torneio.getData_inicio());
 		torneioUpdated.setNome(torneio.getNome());
 		tr.save(torneioUpdated);
+		return "redirect:/{id_organizador}/torneio/view";
 	}
 
-	@RequestMapping("/editar/{id_torneio}/atleta/{id_atleta}") // id de atleta em path, pra funcionar no postman
+	@RequestMapping("/editar/{id_torneio}/adicionar-atleta/{id_atleta}")
 	public String saveAtletaTorneio(@PathVariable("id_organizador") long id_organizador,
 			@PathVariable("id_torneio") long id_torneio, @PathVariable("id_atleta") long id_atleta, RedirectAttributes attributes) {
 		Torneio torneio = tr.findById(id_torneio);
@@ -159,29 +144,25 @@ public class TorneioController {
 			attributes.addFlashAttribute("mensagem", "Vagas excedidas");
 			return "redirect:/{id_organizador}/torneio/editar/{id_torneio}";
 		}
-		saveAtletaTorneioService(id_torneio, id_atleta);
-		return "redirect:/{id_organizador}/torneio/editar/{id_torneio}";
-	}
-
-	@ResponseBody
-	private void saveAtletaTorneioService(long id_torneio, long id_atleta) {
-		Torneio torneio = tr.findById(id_torneio);
+		//saveAtletaTorneioService(id_torneio, id_atleta); 
 		Atleta atleta = ar.findById(id_atleta);
 		List<Atleta> atletas = torneio.getAtletasParticipantes();
+			//logica se atleta ja no torneio, desnecessaria no front //for(Atleta atletaLoop: atletas) {if(atletaLoop.equals(atleta)) {attributes.addFlashAttribute("mensagem", "Atleta existente!");return "redirect:/{id_organizador}/torneio/editar/{id_torneio}";}}
 		atletas.add(atleta);
 		torneio.setAtletasParticipantes(atletas);
 		tr.save(torneio);
+		return "redirect:/{id_organizador}/torneio/editar/{id_torneio}";
 	}
 
-	@RequestMapping("/editar/{id_torneio}/atleta")
+	@GetMapping("/editar/{id_torneio}/deletar-atleta") //a propria doc mandou usar get nesses casos nada mais faz sentido ;-;
 	public String deleteAtletaTorneio(@PathVariable("id_organizador") long id_organizador,
 			@PathVariable("id_torneio") long id_torneio, long id_atleta) {
 		deleteAtletaTorneioService(id_torneio, id_atleta);
 		return "redirect:/{id_organizador}/torneio/editar/{id_torneio}";
 	}
-
 	@ResponseBody
-	private void deleteAtletaTorneioService(long id_torneio, long id_atleta) {
+	@DeleteMapping("/editar/{id_torneio}/deletar-atleta/{id_atleta}")
+	private void deleteAtletaTorneioService(@PathVariable("id_torneio") long id_torneio, @PathVariable("id_atleta") long id_atleta) {
 		Torneio torneio = tr.findById(id_torneio);
 		Atleta atleta = ar.findById(id_atleta);
 		List<Atleta> atletas = torneio.getAtletasParticipantes();

@@ -40,11 +40,14 @@ public class Atleta implements Serializable{
 	@ManyToMany(mappedBy = "atletasParticipantes", cascade = CascadeType.ALL)
 	private List<Torneio> torneiosConcorridos;
 
+	@Column(nullable = false)
+    private boolean ativo;
+	
 	public Atleta() {
-		
+		ativo = true;
 	}	
 
-	public Atleta(String nome, String dataNascimento, Clube clube) {
+	public Atleta(String nome, String dataNascimento, Clube clube) { //verificar
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
 		this.clube = clube;
@@ -91,6 +94,12 @@ public class Atleta implements Serializable{
 	}
 	public void setTorneiosConcorridos(List<Torneio> torneiosConcorridos) {
 		this.torneiosConcorridos = torneiosConcorridos;
+	}
+	public boolean isAtivo() {
+		return ativo;
+	}
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
 	}
 	
 }

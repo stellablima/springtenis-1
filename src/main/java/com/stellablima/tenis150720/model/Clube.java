@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
@@ -36,8 +35,8 @@ public class Clube implements Serializable {
 	@OneToMany ( mappedBy="clube", orphanRemoval = true, cascade=javax.persistence.CascadeType.ALL)
 	private List<Atleta> atletas;
 	
-	@OneToOne ( mappedBy="clube", cascade=javax.persistence.CascadeType.ALL) //por enquanto um clube tem um organizador - EM CASO OneToMany ver comentario no model. Clube
-	private Organizador organizador;
+	@OneToMany ( mappedBy="clube", cascade=javax.persistence.CascadeType.ALL) //por enquanto um clube tem um organizador - EM CASO OneToMany ver comentario no model. Clube
+	private List<Organizador> organizadores;
 	
 	@OneToMany( mappedBy="clube", orphanRemoval = true, cascade=javax.persistence.CascadeType.ALL)
 	private List<Torneio> torneios;
@@ -78,11 +77,11 @@ public class Clube implements Serializable {
 	public void setAtletas(List<Atleta> atletas) {
 		this.atletas = atletas;
 	}
-	public Organizador getOrganizador() {
-		return organizador;
+	public List<Organizador> getOrganizadores() {
+		return organizadores;
 	}
-	public void setOrganizador(Organizador organizador) {
-		this.organizador = organizador;
+	public void setOrganizadores(List<Organizador> organizadores) {
+		this.organizadores = organizadores;
 	}
 	public List<Torneio> getTorneios() {
 		return torneios;

@@ -1,6 +1,7 @@
 package com.stellablima.tenis150720.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,13 +9,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
-
-
 
 @Entity 
 public class Organizador implements Serializable {
+	
+	
+	
 	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private long id;
@@ -35,10 +38,23 @@ public class Organizador implements Serializable {
 	@Column(length = 15, nullable = false) //@Size(min=2, max=100, message="Tem de ter pelo menos 2 letras") 
 	private String senha;
 	
-	//@Column furutamente pra manyToMany colocar comando a baixo no clube, e tornar organizador lista, depois trazer o @joinColum de la pra cá
-	@OneToOne 
+	@ManyToOne 
 	@JoinColumn
 	private Clube clube;
+	
+	//@OneToMany( mappedBy="organizador", orphanRemoval = true, cascade=javax.persistence.CascadeType.ALL)
+	//private List<Torneio> torneios;
+	
+	@Column(nullable = false)
+    private boolean ativo;
+	
+	
+
+
+	public Organizador() {
+		this.ativo = true;
+	}
+	
 	
 	public String getNome() {
 		return nome;
@@ -77,6 +93,12 @@ public class Organizador implements Serializable {
 	}
 	public void setClube(Clube clube) {
 		this.clube = clube;
+	}
+	public boolean isAtivo() {
+		return ativo;
+	}
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
 	}
 	
 }

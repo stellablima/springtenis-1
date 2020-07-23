@@ -1,6 +1,8 @@
 package com.stellablima.tenis150720.model;
 import java.io.Serializable;
 import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,10 +31,20 @@ public class Torneio implements Serializable {
 	@ManyToOne @JoinColumn
 	private Clube clube;
 	
+	//@ManyToOne @JoinColumn //pode ser many to many futuramente, para alterar permissões, fica pro proximo push
+	//private Organizador organizador;
+	
 	@ManyToMany
 	@JoinTable(name="torneio_atleta", joinColumns = {@JoinColumn(name="torneio_id")},inverseJoinColumns = {@JoinColumn(name="atleta_id")})
 	private List<Atleta> atletasParticipantes;
 
+	@Column(nullable = false)
+    private boolean ativo;
+	
+	public Torneio() {
+		this.ativo = true;
+	}
+	
 	
 	public Long getId() {
 		return id;
@@ -69,6 +81,12 @@ public class Torneio implements Serializable {
 	}
 	public void setAtletasParticipantes(List<Atleta> atletasParticipantes) {
 		this.atletasParticipantes = atletasParticipantes;
+	}
+	public boolean isAtivo() {
+		return ativo;
+	}
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
 	}
 
 }

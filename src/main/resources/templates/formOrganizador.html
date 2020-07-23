@@ -19,45 +19,45 @@
 				<ul id="nav-mobile" class="right hide-on-med-and-down">
 					<li id="btn_signup"><a href="/"
 						class="waves-effect waves-light btn"><i
-							class="material-icons left">format_list_bulleted</i>Login do
-							organizador</a></li>
+							class="material-icons left">format_list_bulleted</i>Logout</a></li>
 				</ul>
 			</div>
 		</nav>
 	</header>
 	
 	<div id="signup" class="container formOrganizador">
-		<form method="post">
+	<h5>Cadastro de organizador</h5>
+		<form th:object="${organizador}"method="post">
 			<div class="row">
-				<h4>Cadastro de organizador</h4>
-				<div class="input-field col s10">
-					<label for="nomec">Nome:</label> <input type="text" id="nomec"
-						value="Organizador 1" name="nome" />
+				<div class="input-field col s8">
+					<label for="nomec">Nome:</label> <input type="text"
+						th:value="${nome}" name="nome" />
 				</div>
 				<div class="input-field col s4">
-					<label for="cpfc">CPF:</label> <input type="text" id="cpfc"
-						value="12345678909" name="cpf" />
+					<label for="cpfc">CPF:</label> <input type="text" id="cpf"
+						th:value="${cpf}" name="cpf" maxlength="14" 
+						onkeyup="cpfCheck(this);txtBoxFormat(this.id, '999.999.999-99',event);"/>
+						<span id="cpfResponse"></span>
 				</div>
-				<div class="input-field col s6">
-					<label for="emailc">Email:</label> <input type="text" id="emailc"
-						value="organizador1@email" name="email" />
+				<div class="input-field col s8">
+					<label for="emailc">Email:</label> <input type="email" 
+						th:value="${email}" name="email" />
 				</div>
 				<div class="input-field col s4">
-					<label for="senhac">Senha:</label> <input type="text" id="senhac"
-						value="123" name="senha" />
+					<label for="senhac">Senha:</label> <input type="password" 
+						th:value="${senha}" name="senha" />
 				</div>
 				<div class="input-field col s3">
 					<button class="waves-effect waves-light btn" type="submit">
 						<i class="material-icons left">arrow_upward</i>Cadastrar
 					</button>
 				</div>
-				<div class="input-field col s10"><span th:include="mensagemValidacao"></span></div>
+				<div class="input-field col s9"><span th:include="mensagemValidacao"></span></div>
 			</div>			
 		</form>
 		
 	</div>
-
-<script type="text/javascript" src="/script/script.js"></script>
 	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+	<script type="text/javascript" src="/script/script.js"></script>
 </body>
 </html>

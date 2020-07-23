@@ -17,7 +17,7 @@ public class DataConfigurationPostgreSQL_local {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/torneioapp");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/springtenis-2");
         dataSource.setUsername("postgres");
         dataSource.setPassword("admin");
         return dataSource;

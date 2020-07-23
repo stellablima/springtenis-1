@@ -3,7 +3,7 @@ package com.stellablima.tenis150720.form;
 
 import javax.validation.constraints.NotEmpty;
 
-public class OrganizadorForm2 {
+public class OrganizadorFormUpdate {
 
 	//long id;
 	@NotEmpty(message = "Digite um nome")

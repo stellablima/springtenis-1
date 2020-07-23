@@ -3,10 +3,7 @@ package com.stellablima.tenis150720.form;
 
 import javax.validation.constraints.NotEmpty;
 
-import com.stellablima.tenis150720.model.Organizador;
-import com.stellablima.tenis150720.repository.OrganizadorRepository;
-
-public class OrganizadorForm {
+public class OrganizadorFormLogin {
 
 	@NotEmpty(message = "Digite um email cadastrado")
 	private String email;
@@ -30,10 +27,10 @@ public class OrganizadorForm {
 	}
 	
 	
-	public Organizador converter(OrganizadorRepository or) {
-		Organizador organizador = or.findByEmail(email);
-		return organizador;
-	}
+	//public Organizador converter(OrganizadorRepository or) {
+	//	Organizador organizador = or.findByEmail(email);
+	//	return organizador;
+	//}
 	
 	
 }

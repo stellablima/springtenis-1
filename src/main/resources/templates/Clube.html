@@ -33,21 +33,24 @@
 	<div  class="container" >
 		<h4>Clube</h4>
 			<ul>
+				<li><p>Organizadores:</p></li>
+				<li th:each="organizadores : ${organizadores}">				
+					<span th:text="'Nome: '+${organizadores.nome}"></span>					
+				</li>
 				<li><p>Torneios sediados:</p></li>
 				<li th:each="torneios: ${torneios}">
-				<a th:href="${(#mvc.url('CC#formClubeR').arg(0,organizador.getId()).arg(1,torneios.id)).build()}">
+				<a th:href="${(#mvc.url('TC#formEditarTorneio').arg(0,organizador.getId()).arg(1,torneios.id)).build()}">
 					<span th:text="'Data: '+${torneios.data_inicio}+'  -  Nome: '+${torneios.nome}"></span>					
 				</a></li>
 				<li><p>Torneios vencidos:</p></li>
 				<li th:each="torneiosVencidos: ${torneiosVencidos}">
-				<a th:href="${(#mvc.url('CC#formClubeR').arg(0,organizador.getId()).arg(1,torneiosVencidos.id)).build()}">
+				<a th:href="${(#mvc.url('TC#formEditarTorneio').arg(0,organizador.getId()).arg(1,torneiosVencidos.id)).build()}">
 					<span th:text="'Data: '+${torneiosVencidos.data_inicio}+'  -  Nome: '+${torneiosVencidos.nome}"></span>					
 				</a>
 				<a th:href="${(#mvc.url('AC#formEditarAtleta').arg(0,organizador.getId()).arg(1,torneiosVencidos.getAtletaVencedor().getId())).build()}">
 					<span th:text="' - Atleta: '+${torneiosVencidos.getAtletaVencedor().getNome()}"></span>					
 				</a>
 				</li>
-				
 			</ul>	
 		
 		
@@ -107,7 +110,10 @@
 				</button>		
 				<a th:href="${(#mvc.url('OC#formOrganizador').arg(0,organizador.getId())).build()}" style="margin-left: 15px"
 						class="waves-effect waves-light btn"><i	class="material-icons left">format_list_bulleted</i>
-						Transferir propriedade</a>		
+						Transferir propriedade</a>	
+				<a th:href="${(#mvc.url('OC#formCadastroOrganizador').arg(0,organizador.getId())).build()}" style="margin-left: 15px"
+						class="waves-effect waves-light btn"><i	class="material-icons left">format_list_bulleted</i>
+						Cadastrar organizador</a>		
 			</div>
 		</form>
 	
