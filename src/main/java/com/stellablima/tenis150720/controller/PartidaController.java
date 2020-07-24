@@ -44,6 +44,7 @@ public class PartidaController {
 	public String saveAtletaVencedor(@PathVariable("id_organizador") long id_organizador, @PathVariable("id_torneio") long id_torneio, long codigoAtleta){
 	Torneio torneio = tr.findById(id_torneio);
 	torneio.setAtletaVencedor(ar.findById(codigoAtleta));
+	torneio.setAtivo(false);
 	tr.save(torneio);
 		return "redirect:view";
 	}

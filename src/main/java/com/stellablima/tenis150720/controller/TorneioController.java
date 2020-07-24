@@ -101,9 +101,10 @@ public class TorneioController {
 		List<Atleta> atletas2 = ar.findAll();
 		atletas2.removeAll(atletas1);
 		List<Atleta> atletaView = new ArrayList<Atleta>() ;
-        for(Atleta atleta : atletas2) {     	
+        for(Atleta atleta : atletas2) {  
+        	if(atleta.isAtivo()) {
         	atleta.setDataNascimento(Convert.calculaIdade("yyyy-MM-dd", atleta.getDataNascimento()));
-        	atletaView.add(atleta);
+        	atletaView.add(atleta);}
         }
 		mv.addObject("atletas2", atletaView);		
 		return mv;

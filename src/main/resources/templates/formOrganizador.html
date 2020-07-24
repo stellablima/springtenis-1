@@ -29,21 +29,21 @@
 	<h5>Cadastro de organizador</h5>
 		<form th:object="${organizador}"method="post">
 			<div class="row">
-				<div class="input-field col s8">
+				<div class="input-field col s7">
 					<label for="nomec">Nome:</label> <input type="text"
 						th:value="${nome}" name="nome" />
 				</div>
-				<div class="input-field col s4">
+				<div class="input-field col s5">
 					<label for="cpfc">CPF:</label> <input type="text" id="cpf"
 						th:value="${cpf}" name="cpf" maxlength="14" 
 						onkeyup="cpfCheck(this);txtBoxFormat(this.id, '999.999.999-99',event);"/>
 						<span id="cpfResponse"></span>
 				</div>
-				<div class="input-field col s8">
+				<div class="input-field col s7">
 					<label for="emailc">Email:</label> <input type="email" 
 						th:value="${email}" name="email" />
 				</div>
-				<div class="input-field col s4">
+				<div class="input-field col s5">
 					<label for="senhac">Senha:</label> <input type="password" 
 						th:value="${senha}" name="senha" />
 				</div>

@@ -30,31 +30,32 @@
 			</div>
 		</nav>
 	</header>
-	<div  class="container" >
+	<div  class="container formClube" >
 		<h4>Clube</h4>
 			<ul>
 				<li><p>Organizadores:</p></li>
 				<li th:each="organizadores : ${organizadores}">				
-					<span th:text="'Nome: '+${organizadores.nome}"></span>					
+					 <i class="material-icons tiny">face</i><span style="margin-left:10px" th:text="${organizadores.nome}"></span>					
 				</li>
 				<li><p>Torneios sediados:</p></li>
 				<li th:each="torneios: ${torneios}">
 				<a th:href="${(#mvc.url('TC#formEditarTorneio').arg(0,organizador.getId()).arg(1,torneios.id)).build()}">
-					<span th:text="'Data: '+${torneios.data_inicio}+'  -  Nome: '+${torneios.nome}"></span>					
+					<i class="material-icons tiny">assistant_photo</i><span style="margin-left:10px" th:text="'Data: '+${torneios.data_inicio}+'  -  '+${torneios.nome}"></span>					
 				</a></li>
 				<li><p>Torneios vencidos:</p></li>
 				<li th:each="torneiosVencidos: ${torneiosVencidos}">
 				<a th:href="${(#mvc.url('TC#formEditarTorneio').arg(0,organizador.getId()).arg(1,torneiosVencidos.id)).build()}">
-					<span th:text="'Data: '+${torneiosVencidos.data_inicio}+'  -  Nome: '+${torneiosVencidos.nome}"></span>					
+					<i class="material-icons tiny">assistant_photo</i><span style="margin-left:10px" th:text="'Data: '+${torneiosVencidos.data_inicio}+'  -  '+${torneiosVencidos.nome}"></span>					
 				</a>
+				<br/>
 				<a th:href="${(#mvc.url('AC#formEditarAtleta').arg(0,organizador.getId()).arg(1,torneiosVencidos.getAtletaVencedor().getId())).build()}">
-					<span th:text="' - Atleta: '+${torneiosVencidos.getAtletaVencedor().getNome()}"></span>					
+					<i style="margin-left:20px;" class="material-icons tiny">account_circle</i><span style="margin-left:10px;" th:text="'Atleta: '+${torneiosVencidos.getAtletaVencedor().getNome()}"></span>					
 				</a>
 				</li>
 			</ul>	
 		
 		
-	<form class="formClube" method="post" name="formClube">
+	<form class="" method="post" name="formClube">
 		<div class="row">		
 			<div th:each="clube : ${clube}">
 			<div class="input-field col s6">
@@ -84,7 +85,7 @@
 					<label for="nomeo">Nome:</label> <input type="text"
 						th:value="${organizador.nome}" name="nome"/>
 				</div>
-				<div class="input-field col s4">
+				<div class="input-field col s6">
 					<label for="senhao">Senha:</label> <input type="password" 
 						th:value="${organizador.senha}" name="senha" />
 				</div>
@@ -92,28 +93,29 @@
 					<label for="email">Email:</label> <input type="email" 
 						th:value="${organizador.email}" name="email" disabled/>
 				</div>
-				<div class="input-field col s4">
+				<div class="input-field col s6">
 				
 					<label for="cpf">CPF:</label> <input type="text" id="cpf"
 						 th:value="${organizador.cpf}" name="cpf"  disabled/>
 				</div>
-				<div class="input-field col s10">
+				<div class="input-field col s12">
 					<th:block th:include="mensagemValidacao"></th:block>
 				</div>
-				
-			</div>
-			</div>
-			
-			<div class="input-field col s4">
-				<button class="waves-effect waves-light btn" type="submit">
+				<div class="input-field col s4">
+								<button class="waves-effect waves-light btn" type="submit">
 					<i class="material-icons left">arrow_upward</i>Atualizar
-				</button>		
+				</button>	
+				</div>
+				<div class="input-field col s4">	
 				<a th:href="${(#mvc.url('OC#formOrganizador').arg(0,organizador.getId())).build()}" style="margin-left: 15px"
 						class="waves-effect waves-light btn"><i	class="material-icons left">format_list_bulleted</i>
 						Transferir propriedade</a>	
+						</div>
+				<div class="input-field col s4">
 				<a th:href="${(#mvc.url('OC#formCadastroOrganizador').arg(0,organizador.getId())).build()}" style="margin-left: 15px"
-						class="waves-effect waves-light btn"><i	class="material-icons left">format_list_bulleted</i>
-						Cadastrar organizador</a>		
+						class="waves-effect waves-light btn"><i	class="material-icons left">add_circle_outline</i>
+						Cadastrar organizador</a></div>	
+			</div>
 			</div>
 		</form>
 	

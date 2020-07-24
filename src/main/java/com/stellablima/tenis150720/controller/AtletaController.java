@@ -44,9 +44,10 @@ public class AtletaController {
 		List<Atleta> atletaView = new ArrayList<Atleta>();
 
 		for (Atleta atleta : atletas) {
+			if(atleta.isAtivo()) {
 			atleta.setDataNascimento(Convert.calculaIdade("yyyy-MM-dd", atleta.getDataNascimento())); // setData_inicio(Convert.convertCalendarToString("dd/MM/yyyy",
 																										// cal));
-			atletaView.add(atleta);
+			atletaView.add(atleta);}
 		}
 		mv.addObject("atletas", atletaView);
 		return mv;
@@ -81,13 +82,14 @@ public class AtletaController {
 		return "redirect:/{id_organizador}/atleta/cadastrar";
 	}
 
-	@RequestMapping("/deletar")
+	@RequestMapping("/deletar") //excluir atleta cadastrado em um torneio nao ira tirar ele do torneio, caso ele saia do torneio nao podera ser incluido de novo
 	public String deleteAtleta(@PathVariable("id_organizador") long id_organizador, long codigoAtleta) {
-		deleteAtletaService(codigoAtleta);
+		//deleteAtletaService(codigoAtleta);
+		ar.findById(codigoAtleta).setAtivo(false);
+		ar.save(ar.findById(codigoAtleta));
 		return "redirect:/{id_organizador}/atleta/cadastrar";
 	}
-
-	@ResponseBody
+	@ResponseBody //HIATUS
 	@DeleteMapping("/deletar/{id_atleta}")
 	private void deleteAtletaService(@PathVariable("id_atleta") long id_atleta) {
 		Atleta atleta = ar.findById(id_atleta);

@@ -26,6 +26,7 @@ import com.stellablima.tenis150720.model.Organizador;
 import com.stellablima.tenis150720.model.Torneio;
 import com.stellablima.tenis150720.repository.ClubeRepository;
 import com.stellablima.tenis150720.repository.OrganizadorRepository;
+import com.stellablima.tenis150720.repository.TorneioRepository;
 
 
 @Controller
@@ -36,7 +37,8 @@ public class ClubeController {
 	private OrganizadorRepository or;
 	@Autowired
 	private ClubeRepository cr;
-
+	@Autowired
+	private TorneioRepository tr; 
 	
 	@RequestMapping("/editar")
 	public ModelAndView formClube(@PathVariable("id_organizador") long id_organizador) throws ParseException{
@@ -53,7 +55,7 @@ public class ClubeController {
 		Iterable<Torneio> torneios = clube.getTorneios();
 		mv.addObject("torneios", Convert.ordenarTorneioDataBS(torneios));
 		List<Torneio> torneiosVencidos = new ArrayList<Torneio>();
-		for(Torneio torneio : torneios){
+		for(Torneio torneio : tr.findAll()){
 			Optional<Atleta> av = Optional.ofNullable(torneio.getAtletaVencedor());
 			//se torneio tem um vencedor
 			if(av.isPresent() && av.get().getClube()==clube) {

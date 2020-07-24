@@ -1,6 +1,7 @@
 package com.stellablima.tenis150720.controller;
 
 
+import java.text.ParseException;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.stellablima.tenis150720.bussiness.Convert;
 import com.stellablima.tenis150720.model.Organizador;
+import com.stellablima.tenis150720.model.Torneio;
 import com.stellablima.tenis150720.repository.OrganizadorRepository;
 
 @Controller
@@ -23,10 +27,12 @@ public class OrganizadorController {
 	private OrganizadorRepository or;
 	
 	@RequestMapping("/editar")
-	public ModelAndView formOrganizador(@PathVariable("id_organizador") long id_organizador) {
+	public ModelAndView formOrganizador(@PathVariable("id_organizador") long id_organizador) throws ParseException {
 		ModelAndView mv = new ModelAndView("Organizador");
 		Organizador organizador = or.findById(id_organizador);
 		mv.addObject("organizador",organizador);
+		Iterable<Torneio> torneios = organizador.getClube().getTorneios();
+		mv.addObject("torneios", Convert.ordenarTorneioDataBS(torneios));
 		return mv;		
 	}
 
