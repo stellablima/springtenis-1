@@ -1,5 +1,6 @@
 # springtenis-1
 
-#baseado no tutorial de [@michelliBrito](https://github.com/MichelliBrito/cursospringboot)
+#baseado no tutorial de [Victor Lima - Guia do Programador](https://github.com/MichelliBrito/cursospringboot)
 
-### * [Heroku Deploy](https://sb05-springtenis-1.herokuapp.com/)
+### * [Heroku Deploy (psql) -- off por enquanto]()
+### * [Heroku Deploy (mongodb) -- off por enquanto]()
